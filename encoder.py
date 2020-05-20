@@ -60,7 +60,10 @@ class Encoder(keras.layers.Layer):
         return x
 
 
-encoder = Encoder(3, 8, 512, 2048, 64, 200)
-temp_input = tf.random.uniform((64, 64), dtype=tf.int64, minval=0, maxval=200)
-mask = tf.Variable(initial_value=tf.zeros_initializer()(shape=(64, 64)))
-print(encoder(temp_input, mask[:, np.newaxis, np.newaxis, :], True))
+def test():
+    encoder = Encoder(3, 8, 512, 2048, 64, 200)
+    temp_input = tf.random.uniform((64, 64), dtype=tf.int64, minval=0, maxval=200)
+    mask = tf.Variable(initial_value=tf.zeros_initializer()(shape=(64, 64)))
+    print(encoder(temp_input, mask[:, np.newaxis, np.newaxis, :], True))
+
+# test()
