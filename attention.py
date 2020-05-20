@@ -68,4 +68,4 @@ def test():
     att = mha(query, key, value, zero[:, tf.newaxis, tf.newaxis, :])
     print(att)
 
-test()
+# test()
