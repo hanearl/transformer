@@ -27,11 +27,12 @@ class DecoderLayer(keras.layers.Layer):
         self.dropout3 = keras.layers.Dropout(rate)
 
     def call(self, x, enc_output, lookahead_mask, padding_mask, training):
-        attn_out1 = self.masked_mha(x, x, x, lookahead_mask)
+        attn_out1, _ = self.masked_mha(x, x, x, lookahead_mask)
         attn_out1 = self.dropout1(attn_out1, training=training)
         attn_out1 = self.layer_norm1(attn_out1 + x)
 
-        attn_out2 = self.mha(query=x, key=enc_output, value=enc_output, mask=padding_mask)
+
+        attn_out2, _ = self.mha(attn_out1, enc_output, enc_output, padding_mask)
         attn_out2 = self.dropout2(attn_out2, training=training)
         attn_out2 = self.layer_norm2(attn_out2 + attn_out1)
 
@@ -72,10 +73,10 @@ def test():
         return mask  # (seq_len, seq_len)
 
     # vocab_size, d_model, max_seq_len, num_decoder, num_heads, dff,
-    decoder = Decoder(200, 512, 64, 4, 8, 2048)
-    temp_input = tf.random.uniform((64, 64), dtype=tf.int64, minval=0, maxval=200)
-    enc_input = tf.random.uniform((64, 64), dtype=tf.int64, minval=0, maxval=200)
-    mask = tf.Variable(initial_value=tf.zeros_initializer()(shape=(64, 64)))
+    decoder = Decoder(200, 512, 128, 4, 8, 2048)
+    temp_input = tf.random.uniform((32, 128), dtype=tf.int64, minval=0, maxval=200)
+    enc_input = tf.random.uniform((32, 128, 512), dtype=tf.float32, minval=0, maxval=1)
+    mask = tf.Variable(initial_value=tf.zeros_initializer()(shape=(32, 128)))
     lookahead_mask = create_look_ahead_mask(temp_input.shape[1])
     print(decoder(temp_input, enc_input, lookahead_mask, mask[:, np.newaxis, np.newaxis, :], True))
 
