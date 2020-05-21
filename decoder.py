@@ -80,4 +80,4 @@ def test():
     lookahead_mask = create_look_ahead_mask(temp_input.shape[1])
     print(decoder(temp_input, enc_input, lookahead_mask, mask[:, np.newaxis, np.newaxis, :], True))
 
-test()
+# test()
