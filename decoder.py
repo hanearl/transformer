@@ -58,9 +58,10 @@ class Decoder(keras.layers.Layer):
         self.dropout = keras.layers.Dropout(rate)
 
     def call(self, x, enc_output, lookahead_mask, mask, training):
+        seq_len = x.shape[1]
         x = self.embedding(x)
         x *= tf.math.sqrt(tf.cast(self.d_model, tf.float32))
-        x += self.pos_encoding
+        x += self.pos_encoding[:, :seq_len, :]
         x = self.dropout(x, training=training)
 
         for i, dec in enumerate(self.decoder_stack):

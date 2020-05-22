@@ -8,7 +8,7 @@ def positional_encoding(d_model, max_seq_len):
     pos_encoding = np.arange(max_seq_len)[:, np.newaxis] * angle[np.newaxis, :]
     pos_encoding[:, 0::2] = np.sin(pos_encoding[:, 0::2])
     pos_encoding[:, 1::2] = np.cos(pos_encoding[:, 1::2])
-    return tf.cast(pos_encoding, dtype=tf.float32)
+    return tf.cast(pos_encoding, dtype=tf.float32)[np.newaxis, ...]
 
 
 def test():
