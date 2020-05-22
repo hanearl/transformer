@@ -30,7 +30,6 @@ class Transformer(keras.Model):
 def test():
     # TODO
     # seq_len이 다른문장이 와도 학습 가능하도록 변경하기
-    # 첫 embedding 할 때 scaling 추가
 
     transformer = Transformer(num_encoder=2, num_decoder=2, d_model=512,
                  num_heads=4, dff=1024, seq_len=200, vocab_size=200)

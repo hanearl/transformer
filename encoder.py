@@ -38,6 +38,7 @@ class EncoderLayer(keras.layers.Layer):
 class Encoder(keras.layers.Layer):
     def __init__(self, num_encoder, num_heads, d_model, dff, max_seq_len, vocab_size, rate=0.1):
         super(Encoder, self).__init__()
+        self.d_model = d_model
 
         params = {"num_heads": num_heads, "d_model": d_model, "dff": dff}
         self.encoder_stack = [EncoderLayer(**params) for _ in range(num_encoder)]
@@ -50,6 +51,7 @@ class Encoder(keras.layers.Layer):
 
     def call(self, x, mask, training):
         x = self.embedding(x)
+        x *= tf.math.sqrt(tf.cast(self.d_model, tf.float32))
         x += self.pos_encoding
 
         x = self.dropout(x, training=training)

@@ -46,6 +46,7 @@ class DecoderLayer(keras.layers.Layer):
 class Decoder(keras.layers.Layer):
     def __init__(self, vocab_size, d_model, max_seq_len, num_decoder, num_heads, dff, rate=0.1):
         super(Decoder, self).__init__()
+        self.d_model = d_model
 
         self.embedding = keras.layers.Embedding(vocab_size, d_model)
 
@@ -58,6 +59,7 @@ class Decoder(keras.layers.Layer):
 
     def call(self, x, enc_output, lookahead_mask, mask, training):
         x = self.embedding(x)
+        x *= tf.math.sqrt(tf.cast(self.d_model, tf.float32))
         x += self.pos_encoding
         x = self.dropout(x, training=training)
 
