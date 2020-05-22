@@ -2,9 +2,9 @@ import tensorflow as tf
 from tensorflow import keras
 import numpy as np
 
-from ffnn import PointWiseFeedForwardNetwork
-from attention import MultiHeadAttention
-from embedding import positional_encoding
+from model.ffnn import PointWiseFeedForwardNetwork
+from model.attention import MultiHeadAttention
+from model.embedding import positional_encoding
 
 
 class EncoderLayer(keras.layers.Layer):

@@ -2,9 +2,9 @@ import tensorflow as tf
 import numpy as np
 from tensorflow import keras
 
-from embedding import positional_encoding
-from attention import MultiHeadAttention
-from ffnn import PointWiseFeedForwardNetwork
+from model.embedding import positional_encoding
+from model.attention import MultiHeadAttention
+from model.ffnn import PointWiseFeedForwardNetwork
 
 
 class DecoderLayer(keras.layers.Layer):
