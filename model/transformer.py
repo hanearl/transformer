@@ -16,7 +16,7 @@ class Transformer(keras.Model):
                           "dff": dff, "max_seq_len": tar_max_seq_len, "vocab_size": tar_vocab_size, "rate": rate}
         self.decoder = Decoder(**decoder_params)
 
-        self.final_dense = keras.layers.Dense(tar_vocab_size, activation='softmax')
+        self.final_dense = keras.layers.Dense(tar_vocab_size)
 
     def call(self, inp, tar, training, enc_mask, look_ahead_mask,
              dec_mask):

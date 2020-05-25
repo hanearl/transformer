@@ -17,8 +17,8 @@ class EncoderLayer(keras.layers.Layer):
         ffn_params = {"dff": dff, "d_model": d_model}
         self.ffn = PointWiseFeedForwardNetwork(**ffn_params)
 
-        self.layer_norm1 = keras.layers.LayerNormalization()
-        self.layer_norm2 = keras.layers.LayerNormalization()
+        self.layer_norm1 = keras.layers.LayerNormalization(epsilon=1e-6)
+        self.layer_norm2 = keras.layers.LayerNormalization(epsilon=1e-6)
 
         self.dropout1 = tf.keras.layers.Dropout(rate)
         self.dropout2 = tf.keras.layers.Dropout(rate)
